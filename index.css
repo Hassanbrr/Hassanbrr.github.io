@@ -587,7 +587,39 @@ body.en .skill-card {
 .github-link:hover {
     text-decoration: underline;
 }
+/* Contact */
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+}
 
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.contact-form input,
+.contact-form textarea {
+    padding: 15px;
+    border: 2px solid #ddd;
+    border-radius: 12px;
+    font-family: inherit;
+    background: white;
+}
+
+.contact-form button {
+    align-self: flex-start;
+    cursor: pointer;
+}
+
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    justify-content: center;
+}
 /* ==================== MODAL (unchanged) ==================== */
 .project-modal {
     position: fixed;
