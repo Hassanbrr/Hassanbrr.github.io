@@ -1,13 +1,13 @@
-// === Bahmandar Tech Portfolio JS (Static Projects version) ===
+// === BLG Tech Portfolio JS (Static Projects version) ===
 const translations = {
     fa: {
-        companyName: "بهمن‌دار تک",
+        companyName: "BLG Tech",
         navHome: "خانه", navAbout: "درباره ما", navTeam: "تیم", navSkills: "مهارت‌ها", navProjects: "نمونه کارها", navContact: "تماس",
         heroTitle: "ما راه‌حل‌های دیجیتال می‌سازیم",
         heroSub: "تیم دو نفره برنامه‌نویسان دات نت | تبدیل ایده به نرم‌افزار",
         heroCTA: "مشاهده نمونه کارها",
         aboutTitle: "درباره ما",
-        aboutDesc1: "شرکت بهمن‌دار تک توسط حسن بهمن‌دار و معراج سیاه تیری، دو مهندس کامپیوتر با مدرک کارشناسی و سابقه درخشان در توسعه نرم‌افزارهای تحت وب با .NET تأسیس شد.",
+        aboutDesc1: "شرکت BLG Tech توسط حسن بهمن‌دار و معراج سیاه تیری، دو مهندس کامپیوتر با مدرک کارشناسی و سابقه درخشان در توسعه نرم‌افزارهای تحت وب با .NET تأسیس شد.",
         aboutDesc2: "ماموریت ما ارائه راهکارهای سفارشی، امن و مقیاس‌پذیر با تمرکز بر معماری تمیز و تجربه کاربری مدرن است.",
         aboutDesc3: "بنیان‌گذاران بیش از ۸ سال تجربه ترکیبی در صنعت فناوری اطلاعات دارند.",
         statYears: "سال تجربه", statProjects: "پروژه موفق", statClients: "مشتری خوشحال",
@@ -24,16 +24,16 @@ const translations = {
         proj3Desc: "داشبورد مدیریتی با SignalR، نمودارهای زنده و گزارش‌های پویا.",
         contactTitle: "تماس با ما",
         formName: "نام", formEmail: "ایمیل", formMessage: "پیام شما", formSubmit: "ارسال پیام",
-        footerText: "© 2025 بهمن‌دار تک | طراحی الهام‌گرفته از هنر ایرانی"
+        footerText: "© 2025 BLG Tech | طراحی الهام‌گرفته از هنر ایرانی"
     },
     ar: {
-        companyName: "بهمن‌دار تك",
+        companyName: "BLG Tech",
         navHome: "الرئيسية", navAbout: "من نحن", navTeam: "الفريق", navSkills: "المهارات", navProjects: "أعمالنا", navContact: "اتصل بنا",
         heroTitle: "نحن نبني الحلول الرقمية",
         heroSub: "فريق من مبرمجي دوت نت",
         heroCTA: "شاهد أعمالنا",
         aboutTitle: "من نحن",
-        aboutDesc1: "تأسست شركة بهمن‌دار تك على يد حسن بهمن‌دار ومعراج سیاه تیری، مهندسَي كمبيوتر ذوي خبرة في تطوير الويب بتقنية دوت نت.",
+        aboutDesc1: "تأسست شركة BLG Tech على يد حسن بهمن‌دار ومعراج سیاه تیری، مهندسَي كمبيوتر ذوي خبرة في تطوير الويب بتقنية دوت نت.",
         aboutDesc2: "مهمتنا تقديم حلول برمجية مخصصة وآمنة وقابلة للتطوير.",
         aboutDesc3: "يحمل المؤسسان شهادة البكالوريوس في هندسة الكمبيوتر، ويتمتعان بخبرة تزيد عن 8 سنوات.",
         statYears: "سنوات الخبرة", statProjects: "مشروع ناجح", statClients: "عميل سعيد",
@@ -50,16 +50,16 @@ const translations = {
         proj3Desc: "لوحة تحكم إدارية مع SignalR للتقارير المباشرة والرسوم البيانية التفاعلية.",
         contactTitle: "اتصل بنا",
         formName: "الاسم", formEmail: "البريد الإلكتروني", formMessage: "رسالتك", formSubmit: "إرسال",
-        footerText: "© 2025 بهمن‌دار تك"
+        footerText: "© 2025 BLG Tech"
     },
     en: {
-        companyName: "Bahmandar Tech",
+        companyName: "BLG Tech",
         navHome: "Home", navAbout: "About", navTeam: "Team", navSkills: "Skills", navProjects: "Projects", navContact: "Contact",
         heroTitle: "We Build Digital Solutions",
         heroSub: "A two-person .NET team",
         heroCTA: "View Our Work",
         aboutTitle: "About Us",
-        aboutDesc1: "Bahmandar Tech was founded by Hassan Bahmandar and Meraj Siyah Tiri, two computer engineers with BSc degrees and strong background in .NET web development.",
+        aboutDesc1: "BLG Tech was founded by Hassan Bahmandar and Meraj Siyah Tiri, two computer engineers with BSc degrees and strong background in .NET web development.",
         aboutDesc2: "Our mission is to deliver custom, secure and scalable solutions with clean architecture and modern UX.",
         aboutDesc3: "The founders have over 8 years of combined experience in the IT industry.",
         statYears: "Years Experience", statProjects: "Successful Projects", statClients: "Happy Clients",
@@ -76,7 +76,7 @@ const translations = {
         proj3Desc: "Management dashboard with SignalR, live charts and dynamic reporting.",
         contactTitle: "Contact Us",
         formName: "Name", formEmail: "Email", formMessage: "Your Message", formSubmit: "Send Message",
-        footerText: "© 2025 Bahmandar Tech | Design inspired by Persian art"
+        footerText: "© 2025 BLG Tech | Design inspired by Persian art"
     }
 };
 
