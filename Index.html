@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بهمن‌دار تک | Bahmandar Tech</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body class="fa">
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="loader-mandala"></div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#home" class="logo" data-i18n="companyName">بهمن‌دار تک</a>
+            <ul class="nav-links">
+                <li><a href="#home" data-i18n="navHome">خانه</a></li>
+                <li><a href="#about" data-i18n="navAbout">درباره ما</a></li>
+                <li><a href="#team" data-i18n="navTeam">تیم</a></li>
+                <li><a href="#skills" data-i18n="navSkills">مهارت‌ها</a></li>
+                <li><a href="#projects" data-i18n="navProjects">نمونه کارها</a></li>
+                <li><a href="#contact" data-i18n="navContact">تماس</a></li>
+            </ul>
+            <div class="nav-flags">
+                <button class="flag-btn active" data-lang="fa" aria-label="فارسی"><span
+                        class="flag flag-ir"></span></button>
+                <button class="flag-btn" data-lang="ar" aria-label="العربية"><span class="flag flag-om"></span></button>
+                <button class="flag-btn" data-lang="en" aria-label="English"><span class="flag flag-us"></span></button>
+            </div>
+            <div class="hamburger" id="hamburger">☰</div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <header class="hero" id="home">
+        <div class="hero-bg-pattern"></div>
+        <div class="hero-content">
+            <h1 class="hero-title" data-i18n="heroTitle">ما راه‌حل‌های دیجیتال می‌سازیم</h1>
+            <p class="hero-sub" data-i18n="heroSub">تیم دو نفره برنامه‌نویسان دات نت | تبدیل ایده به نرم‌افزار</p>
+            <a href="#projects" class="btn btn-gold" data-i18n="heroCTA">مشاهده نمونه کارها</a>
+        </div>
+        <div class="scroll-indicator"></div>
+    </header>
+
+    <!-- About Company -->
+    <section id="about" class="about-section">
+        <div class="container">
+            <h2 class="section-title" data-i18n="aboutTitle">درباره ما</h2>
+            <div class="about-grid">
+                <div class="about-text">
+                    <p data-i18n="aboutDesc1">شرکت بهمن‌دار تک توسط حسن بهمن‌دار و علی محمدی، دو مهندس کامپیوتر با مدرک
+                        کارشناسی و سابقه درخشان در توسعه نرم‌افزارهای تحت وب با .NET تأسیس شد.</p>
+                    <p data-i18n="aboutDesc2">ماموریت ما ارائه راهکارهای سفارشی، امن و مقیاس‌پذیر با تمرکز بر معماری
+                        تمیز و تجربه کاربری مدرن است.</p>
+                    <p data-i18n="aboutDesc3">بنیان‌گذاران بیش از ۸ سال تجربه ترکیبی در صنعت فناوری اطلاعات دارند.</p>
+                </div>
+                <div class="about-stats">
+                    <div class="stat-item"><span class="stat-number" data-target="8">0</span><span class="stat-label"
+                            data-i18n="statYears">سال تجربه</span></div>
+                    <div class="stat-item"><span class="stat-number" data-target="30">0</span><span class="stat-label"
+                            data-i18n="statProjects">پروژه موفق</span></div>
+                    <div class="stat-item"><span class="stat-number" data-target="15">0</span><span class="stat-label"
+                            data-i18n="statClients">مشتری خوشحال</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team -->
+    <section id="team" class="team-section">
+        <div class="container">
+            <h2 class="section-title" data-i18n="teamTitle">تیم ما</h2>
+            <div class="team-grid">
+                <div class="team-card">
+                    <div class="team-img-frame"><img src="images/hassan.jpg" alt="Hassan Bahmandar" loading="lazy">
+                    </div>
+                    <h3 data-i18n="member1Name">حسن بهمن‌دار</h3>
+                    <p class="role" data-i18n="member1Role">بنیان‌گذار و مدیر فنی</p>
+                    <p class="bio" data-i18n="member1Bio">توسعه‌دهنده ارشد دات نت با تمرکز بر معماری نرم‌افزار و
+                        سیستم‌های سازمانی.</p>
+                    <div class="member-skills"><span>.NET Core</span><span>Blazor</span><span>C#</span><span>SQL
+                            Server</span></div>
+                </div>
+                <div class="team-card">
+                    <div class="team-img-frame"><img src="images/meraj.jpg" alt="Ali Mohammadi" loading="lazy"></div>
+                    <h3 data-i18n="member2Name">علی محمدی</h3>
+                    <p class="role" data-i18n="member2Role">بنیان‌گذار و توسعه‌دهنده ارشد</p>
+                    <p class="bio" data-i18n="member2Bio">متخصص فرانت‌اند و بک‌اند با تجربه در Blazor و طراحی رابط
+                        کاربری مدرن.</p>
+                    <div class="member-skills"><span>Blazor</span><span>.NET</span><span>HTML/CSS</span><span>EF
+                            Core</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills (dynamic but kept as is) -->
+    <section id="skills" class="skills-section">
+        <div class="container">
+            <h2 class="section-title" data-i18n="skillsTitle">مهارت‌های شرکت</h2>
+            <div class="skills-grid" id="skillsContainer"></div>
+        </div>
+    </section>
+
+    <!-- Projects (STATIC) -->
+    <section id="projects" class="projects-section">
+        <div class="container">
+            <h2 class="section-title" data-i18n="projectsTitle">نمونه کارها</h2>
+            <div class="projects-grid">
+                <!-- Project 1 -->
+                <div class="project-card" data-project="0">
+                    <div class="card-img"><img src="images/project1.png" alt="Project 1" loading="lazy"></div>
+                    <div class="card-body">
+                        <h3 data-i18n="proj1Title">سامانه مدیریت محتوا</h3>
+                        <p data-i18n="proj1Desc">CMS سفارشی با ASP.NET Core و Blazor، پنل مدیریت پیشرفته و چندزبانگی.
+                        </p>
+                        <button class="detail-btn">👁️ مشاهده جزئیات</button>
+                        <a href="https://github.com/Hassanbrr" target="_blank" class="github-link">GitHub ↗</a>
+                    </div>
+                </div>
+                <!-- Project 2 -->
+                <div class="project-card" data-project="1">
+                    <div class="card-img"><img src="images/project2.png" alt="Project 2" loading="lazy"></div>
+                    <div class="card-body">
+                        <h3 data-i18n="proj2Title">فروشگاه اینترنتی</h3>
+                        <p data-i18n="proj2Desc">پلتفرم تجارت الکترونیک با سبد خرید، درگاه پرداخت و پنل فروشنده در .NET
+                            8.</p>
+                        <button class="detail-btn">👁️ مشاهده جزئیات</button>
+                        <a href="https://github.com/Hassanbrr" target="_blank" class="github-link">GitHub ↗</a>
+                    </div>
+                </div>
+                <!-- Project 3 -->
+                <div class="project-card" data-project="2">
+                    <div class="card-img"><img src="images/project3.jpg" alt="Project 3" loading="lazy"></div>
+                    <div class="card-body">
+                        <h3 data-i18n="proj3Title">داشبورد تحلیلی</h3>
+                        <p data-i18n="proj3Desc">داشبورد مدیریتی با SignalR، نمودارهای زنده و گزارش‌های پویا.</p>
+                        <button class="detail-btn">👁️ مشاهده جزئیات</button>
+                        <a href="https://github.com/Hassanbrr" target="_blank" class="github-link">GitHub ↗</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <h2 class="section-title" data-i18n="contactTitle">تماس با ما</h2>
+            <div class="contact-grid">
+                <form class="contact-form">
+                    <input type="text" placeholder="نام" data-i18n-placeholder="formName" required>
+                    <input type="email" placeholder="ایمیل" data-i18n-placeholder="formEmail" required>
+                    <textarea rows="5" placeholder="پیام شما" data-i18n-placeholder="formMessage" required></textarea>
+                    <button type="submit" class="btn btn-gold" data-i18n="formSubmit">ارسال پیام</button>
+                </form>
+                <div class="contact-info">
+                    <p>📧 hassan@bahmandar.ir</p>
+                    <p>📞 ۰۹۱۲۳۴۵۶۷۸۹</p>
+                    <a href="https://github.com/Hassanbrr" target="_blank">GitHub</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p data-i18n="footerText">© 2025 بهمن‌دار تک</p>
+        </div>
+    </footer>
+
+    <!-- Project Detail Modal -->
+    <div class="project-modal" id="projectModal">
+        <div class="modal-backdrop"></div>
+        <div class="modal-container">
+            <button class="modal-close" id="modalClose">&times;</button>
+            <div class="modal-frame">
+                <h2 class="modal-title" id="modalTitle"></h2>
+                <div class="modal-gallery" id="modalGallery"></div>
+                <div class="gallery-controls">
+                    <button class="gallery-btn" id="prevImage">&#10094;</button>
+                    <span class="gallery-counter" id="galleryCounter">1 / 5</span>
+                    <button class="gallery-btn" id="nextImage">&#10095;</button>
+                </div>
+                <p class="modal-desc" id="modalDesc"></p>
+                <div class="modal-tech" id="modalTech"></div>
+                <a href="#" target="_blank" class="btn btn-gold modal-github" id="modalGitHub">GitHub</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="index.js"></script>
+</body>
+
+</html>
