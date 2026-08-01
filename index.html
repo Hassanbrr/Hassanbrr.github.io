@@ -1,201 +1,694 @@
 <!DOCTYPE html>
-<html lang="fa" dir="rtl">
-
+<html lang="en" dir="ltr" id="htmlRoot">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>بهمن‌دار تک | Bahmandar Tech</title>
-    <link rel="stylesheet" href="index.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hassan Bahmandar — Backend Developer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100..900&family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --ink:#0a0e14;
+      --panel:#10161f;
+      --panel-2:#151d29;
+      --line: rgba(196,167,88,0.22);
+      --line-soft: rgba(232,230,223,0.08);
+      --gold:#c9a24b;
+      --gold-soft:#e4c878;
+      --firouzeh:#28b8ab;
+      --firouzeh-soft:#5fd9cc;
+      --ivory:#e9e6dd;
+      --muted:#8b93a0;
+      --muted-2:#5c6472;
+      --radius: 2px;
+      --maxw: 1180px;
+    }
+    *{margin:0;padding:0;box-sizing:border-box;}
+    html{scroll-behavior:smooth;}
+    body{
+      background:var(--ink);
+      color:var(--ivory);
+      font-family:'Vazirmatn', sans-serif;
+      line-height:1.75;
+      overflow-x:hidden;
+      -webkit-font-smoothing:antialiased;
+    }
+    ::selection{background:var(--gold); color:var(--ink);}
+    a{color:inherit; text-decoration:none;}
+    .mono{ font-family:'JetBrains Mono', monospace; letter-spacing:0.06em; }
+    .wrap{max-width:var(--maxw); margin:0 auto; padding:0 32px;}
+
+    /* ---------- top scanline ---------- */
+    .scanbar{
+      position:fixed; inset-block-start:0; inset-inline:0; height:2px; z-index:200;
+      background:linear-gradient(90deg, transparent, var(--gold), var(--firouzeh), transparent);
+      opacity:.55;
+    }
+
+    /* ---------- blueprint grid background ---------- */
+    .blueprint-bg{
+      position:fixed; inset:0; z-index:0; pointer-events:none;
+      background-image:
+        repeating-linear-gradient(0deg, rgba(201,162,75,0.07) 0 1px, transparent 1px 100px),
+        repeating-linear-gradient(90deg, rgba(201,162,75,0.07) 0 1px, transparent 1px 100px),
+        repeating-linear-gradient(0deg, rgba(232,230,223,0.035) 0 1px, transparent 1px 20px),
+        repeating-linear-gradient(90deg, rgba(232,230,223,0.035) 0 1px, transparent 1px 20px);
+      -webkit-mask-image: radial-gradient(120% 90% at 50% 0%, #000 40%, transparent 100%);
+              mask-image: radial-gradient(120% 90% at 50% 0%, #000 40%, transparent 100%);
+    }
+
+    /* ---------- corner register marks ---------- */
+    .corner-marks{position:relative;}
+    .corner-marks .corner{position:absolute; width:14px; height:14px; opacity:.75; pointer-events:none;}
+    .corner-marks .tl{inset-block-start:-1px; inset-inline-start:-1px; border-block-start:1px solid var(--gold); border-inline-start:1px solid var(--gold);}
+    .corner-marks .tr{inset-block-start:-1px; inset-inline-end:-1px; border-block-start:1px solid var(--gold); border-inline-end:1px solid var(--gold);}
+    .corner-marks .bl{inset-block-end:-1px; inset-inline-start:-1px; border-block-end:1px solid var(--gold); border-inline-start:1px solid var(--gold);}
+    .corner-marks .br{inset-block-end:-1px; inset-inline-end:-1px; border-block-end:1px solid var(--gold); border-inline-end:1px solid var(--gold);}
+
+    /* ---------- nav ---------- */
+    header{
+      position:fixed; inset-block-start:0; inset-inline:0; z-index:100;
+      background:rgba(10,14,20,0.72);
+      backdrop-filter: blur(14px);
+      border-bottom:1px solid var(--line-soft);
+    }
+    nav.wrap{ display:flex; align-items:center; justify-content:space-between; height:76px; gap:20px; }
+    .brand{ font-family:'JetBrains Mono', monospace; font-size:15px; letter-spacing:0.08em; color:var(--gold-soft); display:flex; align-items:center; gap:10px; white-space:nowrap;}
+    .brand .dot{width:7px; height:7px; border-radius:50%; background:var(--firouzeh); box-shadow:0 0 10px var(--firouzeh);}
+    .navlinks{display:flex; gap:34px; font-size:14.5px; color:var(--muted);}
+    .navlinks a{position:relative; padding:6px 0; transition:color .25s; white-space:nowrap;}
+    .navlinks a:hover{color:var(--ivory);}
+    .navlinks a::after{ content:""; position:absolute; inset-inline-start:0; inset-block-end:0; width:0; height:1px; background:var(--gold); transition:width .3s; }
+    .navlinks a:hover::after{width:100%;}
+    .nav-right{display:flex; align-items:center; gap:18px;}
+    .lang-toggle{
+      display:flex; border:1px solid var(--line); font-family:'JetBrains Mono'; font-size:11.5px; overflow:hidden; border-radius:2px; flex-shrink:0;
+    }
+    .lang-toggle button{
+      background:transparent; border:none; color:var(--muted); padding:8px 13px; cursor:pointer; font-family:inherit; font-size:inherit; letter-spacing:.05em; transition:all .25s;
+    }
+    .lang-toggle button.active{background:var(--gold); color:var(--ink); font-weight:600;}
+    .navtoggle{display:none; flex-direction:column; gap:5px; cursor:pointer; z-index:110; flex-shrink:0;}
+    .navtoggle span{width:22px; height:1.5px; background:var(--ivory);}
+
+    /* ---------- hero ---------- */
+    .hero{ position:relative; min-height:100vh; display:flex; align-items:center; padding-block-start:76px; }
+    .hero .wrap{ display:grid; grid-template-columns:1.15fr 0.85fr; gap:64px; align-items:center; position:relative; z-index:2; }
+    .status-badge{
+      display:inline-flex; align-items:center; gap:9px; font-family:'JetBrains Mono'; font-size:11.5px; color:var(--firouzeh-soft);
+      border:1px solid rgba(40,184,171,0.3); padding:7px 14px; margin-bottom:22px;
+    }
+    .status-badge .pulse{width:7px; height:7px; border-radius:50%; background:var(--firouzeh); box-shadow:0 0 8px var(--firouzeh); animation:blink 1.8s infinite;}
+    @keyframes blink{0%,100%{opacity:1} 50%{opacity:.3}}
+    .eyebrow{ display:inline-flex; align-items:center; gap:12px; font-size:12.5px; color:var(--muted); margin-bottom:26px; }
+    .eyebrow .bar{width:34px; height:1px; background:var(--gold);}
+    h1.name{ font-size:clamp(42px, 6vw, 74px); font-weight:800; line-height:1.1; color:var(--ivory); margin-bottom:18px; letter-spacing:-0.01em; }
+    h1.name span{ background:linear-gradient(92deg, var(--gold-soft), var(--firouzeh-soft)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+    .role{ font-size:19px; color:var(--muted); max-width:520px; margin-bottom:34px; font-weight:400; }
+    .hero-cta{display:flex; gap:16px; flex-wrap:wrap;}
+    .btn{ font-family:'JetBrains Mono', monospace; font-size:13px; letter-spacing:0.04em; padding:15px 28px; border-radius:var(--radius); display:inline-flex; align-items:center; gap:10px; transition:all .3s; cursor:pointer; border:none; }
+    .btn-primary{ background:var(--gold); color:var(--ink); font-weight:600; }
+    .btn-primary:hover{background:var(--gold-soft); transform:translateY(-2px);}
+    .btn-ghost{ border:1px solid var(--line); color:var(--ivory); background:transparent;}
+    .btn-ghost:hover{border-color:var(--gold); color:var(--gold-soft); transform:translateY(-2px);}
+
+    .hero-mark{ position:relative; display:flex; align-items:center; justify-content:center; }
+    .mark-ring{ position:relative; width:340px; height:340px; max-width:80vw; max-height:80vw; }
+    .mark-ring svg{width:100%; height:100%; position:absolute; inset:0;}
+    .avatar-wrap{
+      position:absolute; inset:26px; border-radius:50%; overflow:hidden;
+      display:flex; align-items:center; justify-content:center;
+      background:radial-gradient(circle at 35% 25%, #1a2230, #0d1119);
+      border:1px solid var(--line);
+    }
+    .avatar-wrap img{width:100%; height:100%; object-fit:cover; display:block;}
+    .mark-caption{ position:absolute; inset-block-end:-38px; inset-inline:0; text-align:center; font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--muted-2); letter-spacing:0.08em; }
+
+    .scroll-cue{ position:absolute; inset-block-end:36px; inset-inline-start:50%; transform:translateX(-50%); font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--muted-2); display:flex; flex-direction:column; align-items:center; gap:10px; z-index:2; }
+    [dir="rtl"] .scroll-cue{ transform:translateX(50%); }
+    .scroll-cue .line{width:1px; height:34px; background:linear-gradient(var(--gold), transparent); animation:pulse 2s infinite;}
+    @keyframes pulse{0%,100%{opacity:.3} 50%{opacity:1}}
+
+    /* ---------- section shell ---------- */
+    section{position:relative; z-index:1; padding:130px 0;}
+    .section-head{margin-bottom:64px; max-width:640px;}
+    .section-num{ font-family:'JetBrains Mono', monospace; font-size:13px; color:var(--gold); margin-bottom:14px; display:block; }
+    h2.section-title{ font-size:clamp(30px,4vw,44px); font-weight:800; color:var(--ivory); margin-bottom:16px; }
+    .section-sub{color:var(--muted); font-size:16px; max-width:560px;}
+
+    /* ---------- about ---------- */
+    .about-grid{ display:grid; grid-template-columns:1fr 1fr; gap:70px; align-items:start; }
+    .about-text p{color:var(--muted); font-size:16.5px; margin-bottom:20px;}
+    .about-text strong{color:var(--ivory); font-weight:600;}
+    .stat-strip{ display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line-soft); border:1px solid var(--line-soft); margin-top:38px; }
+    .stat{background:var(--ink); padding:26px 20px;}
+    .stat b{display:block; font-size:30px; color:var(--gold-soft); font-family:'JetBrains Mono'; margin-bottom:6px;}
+    .stat span{font-size:12.5px; color:var(--muted);}
+
+    .facts{border:1px solid var(--line-soft); background:var(--panel); padding:36px;}
+    .facts .row{ display:flex; justify-content:space-between; align-items:baseline; gap:16px; padding:16px 0; border-bottom:1px solid var(--line-soft); font-size:14.5px; }
+    .facts .row:last-child{border-bottom:none;}
+    .facts .row .k{color:var(--muted); font-family:'JetBrains Mono'; font-size:12px; flex-shrink:0;}
+    .facts .row .v{color:var(--ivory); text-align:end;}
+    .facts .row a.v:hover{color:var(--firouzeh-soft);}
+
+    /* ---------- skills ---------- */
+    .skills-grid{ display:grid; grid-template-columns:repeat(4, 1fr); gap:1px; background:var(--line-soft); border:1px solid var(--line-soft); }
+    .skill-card{ background:var(--panel); padding:30px 24px; transition:background .3s; position:relative; overflow:hidden; }
+    .skill-card:hover{background:var(--panel-2);}
+    .skill-card .ic{ width:34px; height:34px; margin-bottom:20px; color:var(--firouzeh); }
+    .skill-card .ic svg{width:100%; height:100%;}
+    .skill-card h4{font-size:15.5px; color:var(--ivory); margin-bottom:8px; font-weight:600;}
+    .skill-card p{font-size:13px; color:var(--muted-2); line-height:1.6;}
+
+    /* ---------- projects ---------- */
+    .project{ border:1px solid var(--line-soft); background:var(--panel); margin-bottom:46px; overflow:hidden; }
+    .project-head{ display:flex; justify-content:space-between; align-items:flex-start; gap:30px; padding:44px 44px 30px; border-bottom:1px solid var(--line-soft); flex-wrap:wrap; }
+    .project-tag{ font-family:'JetBrains Mono'; font-size:11.5px; color:var(--firouzeh-soft); border:1px solid rgba(40,184,171,0.35); padding:5px 12px; display:inline-block; margin-bottom:16px; }
+    .project h3{font-size:27px; color:var(--ivory); font-weight:800; margin-bottom:10px;}
+    .project .desc{color:var(--muted); max-width:640px; font-size:15px;}
+    .project .link{ font-family:'JetBrains Mono'; font-size:13px; color:var(--gold-soft); display:inline-flex; align-items:center; gap:8px; white-space:nowrap; border-bottom:1px solid transparent; }
+    .project .link:hover{border-color:var(--gold-soft);}
+    .project-tech{ display:flex; flex-wrap:wrap; gap:9px; padding:24px 44px 0; }
+    .chip{ font-family:'JetBrains Mono'; font-size:11.5px; color:var(--muted); border:1px solid var(--line-soft); padding:6px 12px; }
+
+    .blueprint{ padding:36px 44px 44px; position:relative; }
+    .blueprint-label{ display:flex; align-items:center; gap:12px; margin-bottom:26px; font-family:'JetBrains Mono'; font-size:12px; color:var(--muted-2); letter-spacing:.08em; }
+    .blueprint-label .seg{flex:1; height:1px; background:var(--line-soft);}
+    .layers{ display:flex; flex-direction:column; gap:10px; }
+    .layer{ border:1px solid var(--line); background:linear-gradient(180deg, rgba(201,162,75,0.05), transparent); position:relative; }
+    .layer-bar{ display:flex; align-items:center; gap:14px; padding:14px 20px; flex-wrap:wrap; }
+    .layer-idx{ font-family:'JetBrains Mono'; font-size:11px; color:var(--gold); width:26px; flex-shrink:0; }
+    .layer-name{ font-family:'JetBrains Mono'; font-size:14px; color:var(--ivory); font-weight:500; }
+    .layer-desc{ font-size:12.5px; color:var(--muted-2); margin-inline-start:auto; }
+    .layer-modules{ display:flex; flex-wrap:wrap; gap:8px; padding:0 20px 18px 20px; }
+    .mod{ font-family:'JetBrains Mono'; font-size:11px; color:var(--firouzeh-soft); background:rgba(40,184,171,0.07); border:1px solid rgba(40,184,171,0.2); padding:5px 10px; }
+    .mod.sub{color:var(--muted); background:transparent; border-color:var(--line-soft);}
+    .layer.l0{border-color:rgba(201,162,75,0.5);}
+    .layer.l0 .layer-idx{color:var(--gold-soft);}
+
+    /* ---------- education/certs ---------- */
+    .edu-grid{display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--line-soft); border:1px solid var(--line-soft);}
+    .edu-card{background:var(--panel); padding:34px;}
+    .edu-card .icon{width:30px; height:30px; color:var(--gold); margin-bottom:18px;}
+    .edu-card .icon svg{width:100%; height:100%;}
+    .edu-card h4{font-size:16.5px; color:var(--ivory); margin-bottom:6px; font-weight:700;}
+    .edu-card .meta{font-family:'JetBrains Mono'; font-size:12px; color:var(--muted-2); margin-bottom:14px;}
+    .edu-card p{font-size:13.5px; color:var(--muted);}
+
+    /* ---------- contact ---------- */
+    .contact-panel{ border:1px solid var(--line); background:var(--panel); padding:70px 60px; text-align:center; position:relative; overflow:hidden; }
+    .contact-panel::before{ content:""; position:absolute; inset:0; background: radial-gradient(600px 240px at 50% 0%, rgba(201,162,75,0.10), transparent); pointer-events:none; }
+    .contact-panel h2{font-size:clamp(28px,4vw,42px); font-weight:800; margin-bottom:18px; position:relative;}
+    .contact-panel p{color:var(--muted); max-width:480px; margin:0 auto 40px; position:relative;}
+    .contact-links{display:flex; justify-content:center; gap:16px; flex-wrap:wrap; position:relative;}
+
+    footer{ padding:40px 0; text-align:center; border-top:1px solid var(--line-soft); font-family:'JetBrains Mono'; font-size:12px; color:var(--muted-2); position:relative; z-index:1;}
+
+    [data-reveal]{opacity:0; transform:translateY(24px); transition:opacity .8s ease, transform .8s ease;}
+    [data-reveal].in{opacity:1; transform:translateY(0);}
+
+    @media (max-width:900px){
+      .hero .wrap{grid-template-columns:1fr; gap:60px; text-align:center;}
+      .status-badge, .eyebrow{justify-content:center;}
+      .role{margin-left:auto; margin-right:auto;}
+      .hero-cta{justify-content:center;}
+      .hero-mark{order:-1;}
+      .about-grid{grid-template-columns:1fr;}
+      .skills-grid{grid-template-columns:repeat(2,1fr);}
+      .edu-grid{grid-template-columns:1fr;}
+      .navlinks{display:none;}
+      .navtoggle{display:flex;}
+      .stat-strip{grid-template-columns:1fr;}
+    }
+    @media (max-width:520px){
+      .wrap{padding:0 20px;}
+      .project-head{padding:32px 24px 24px;}
+      .project-tech{padding:20px 24px 0;}
+      .blueprint{padding:28px 24px 32px;}
+      .contact-panel{padding:50px 24px;}
+    }
+  </style>
 </head>
+<body>
 
-<body class="fa">
-    <!-- Preloader -->
-    <div id="preloader">
-        <div class="loader-mandala"></div>
+<div class="scanbar"></div>
+<div class="blueprint-bg"></div>
+
+<header>
+  <nav class="wrap">
+    <div class="brand"><span class="dot"></span> H.BAHMANDAR</div>
+    <div class="navlinks">
+      <a href="#about" data-i18n="nav_about">About</a>
+      <a href="#skills" data-i18n="nav_skills">Skills</a>
+      <a href="#projects" data-i18n="nav_work">Work</a>
+      <a href="#education" data-i18n="nav_education">Education</a>
+      <a href="#contact" data-i18n="nav_contact">Contact</a>
+    </div>
+    <div class="nav-right">
+      <div class="lang-toggle">
+        <button type="button" id="btnEn" class="active">EN</button>
+        <button type="button" id="btnAr">AR</button>
+      </div>
+      <div class="navtoggle" id="navToggle"><span></span><span></span><span></span></div>
+    </div>
+  </nav>
+</header>
+
+<!-- ===================== HERO ===================== -->
+<section class="hero" id="top">
+  <div class="wrap">
+    <div>
+      <div class="status-badge"><span class="pulse"></span><span data-i18n="hero_badge">Available for freelance work</span></div>
+      <div class="eyebrow mono"><span class="bar"></span> <span data-i18n="hero_eyebrow">BACKEND DEVELOPER · ASP.NET CORE ECOSYSTEM</span></div>
+      <h1 class="name"><span data-i18n="hero_name1">Hassan</span> <span data-i18n="hero_name2">Bahmandar</span></h1>
+      <p class="role" data-i18n="hero_role">Backend developer with two years of professional experience in the .NET ecosystem — building clean, scalable architectures for online stores, booking platforms and content-driven systems.</p>
+      <div class="hero-cta">
+        <a href="#projects" class="btn btn-primary" data-i18n="cta_projects">View my work</a>
+        <a href="#contact" class="btn btn-ghost" data-i18n="cta_contact">Get in touch</a>
+      </div>
+    </div>
+    <div class="hero-mark">
+      <div class="mark-ring corner-marks">
+        <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+        <svg viewBox="0 0 340 340">
+          <defs>
+            <linearGradient id="ringGrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#c9a24b"/>
+              <stop offset="100%" stop-color="#28b8ab"/>
+            </linearGradient>
+          </defs>
+          <g fill="none" stroke="url(#ringGrad)" stroke-width="1">
+            <circle cx="170" cy="170" r="168"/>
+            <circle cx="170" cy="170" r="150" stroke-opacity="0.5"/>
+          </g>
+        </svg>
+        <div class="avatar-wrap">
+          <!--
+            عکس خود را اینجا با src مستقیم قرار دهید.
+            مثال: src="assets/photo.jpg" یا src="https://example.com/photo.jpg"
+          -->
+          <img id="avatarImg" src="./hassan.jpg" alt="Hassan Bahmandar">
+        </div>
+        <div class="mark-caption">HASSAN · BAHMANDAR</div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-cue"><span data-i18n="scroll">SCROLL</span><span class="line"></span></div>
+</section>
+
+<!-- ===================== ABOUT ===================== -->
+<section id="about">
+  <div class="wrap">
+    <div class="section-head" data-reveal>
+      <span class="section-num mono" data-i18n="about_num">01 — About</span>
+      <h2 class="section-title" data-i18n="about_title">Precision that stays in the code</h2>
+      <p class="section-sub" data-i18n="about_sub">More than two years living inside clean architectures and real production systems, where every layer has a clear responsibility and nothing is written by accident.</p>
     </div>
 
-    <!-- Navbar -->
-    <nav class="navbar" id="navbar">
-        <div class="nav-container">
-            <a href="#home" class="logo" data-i18n="companyName">بهمن‌دار تک</a>
-            <ul class="nav-links">
-                <li><a href="#home" data-i18n="navHome">خانه</a></li>
-                <li><a href="#about" data-i18n="navAbout">درباره ما</a></li>
-                <li><a href="#team" data-i18n="navTeam">تیم</a></li>
-                <li><a href="#skills" data-i18n="navSkills">مهارت‌ها</a></li>
-                <li><a href="#projects" data-i18n="navProjects">نمونه کارها</a></li>
-                <li><a href="#contact" data-i18n="navContact">تماس</a></li>
-            </ul>
-            <div class="nav-flags">
-                <button class="flag-btn active" data-lang="fa" aria-label="فارسی"><span
-                        class="flag flag-ir"></span></button>
-                <button class="flag-btn" data-lang="ar" aria-label="العربية"><span class="flag flag-om"></span></button>
-                <button class="flag-btn" data-lang="en" aria-label="English"><span class="flag flag-us"></span></button>
-            </div>
-            <div class="hamburger" id="hamburger">☰</div>
-        </div>
-    </nav>
+    <div class="about-grid">
+      <div class="about-text" data-reveal>
+        <p data-i18n="about_p1">I'm <strong>Hassan Bahmandar</strong>, a backend developer and co-founder of the software studio <strong>BLG Tech</strong>. My core focus is <strong>ASP.NET Core</strong>, <strong>C#</strong> and <strong>Entity Framework Core</strong>, and <strong>Clean Architecture</strong> with <strong>Repository</strong> and <strong>CQRS</strong> patterns is the backbone of every project I build.</p>
+        <p data-i18n="about_p2">Alongside the backend, I build admin interfaces with <strong>Blazor Server</strong>, and deploy projects on <strong>Windows VPS/IIS</strong> behind <strong>ArvanCloud CDN</strong> — working within the real constraints of Iran's internet infrastructure, from filtering to local payment gateways.</p>
+        <p data-i18n="about_p3">I like solving real business problems: from multi-layer discount engines to infrastructure and payment-gateway issues. To me, clean code means a system you can still extend tomorrow without fear.</p>
 
-    <!-- Hero -->
-    <header class="hero" id="home">
-        <div class="hero-bg-pattern"></div>
-        <div class="hero-content">
-            <h1 class="hero-title" data-i18n="heroTitle">ما راه‌حل‌های دیجیتال می‌سازیم</h1>
-            <p class="hero-sub" data-i18n="heroSub">تیم دو نفره برنامه‌نویسان دات نت | تبدیل ایده به نرم‌افزار</p>
-            <a href="#projects" class="btn btn-gold" data-i18n="heroCTA">مشاهده نمونه کارها</a>
+        <div class="stat-strip">
+          <div class="stat"><b>+2</b><span data-i18n="stat1">Years of professional experience</span></div>
+          <div class="stat"><b>.NET</b><span data-i18n="stat2">Core development stack</span></div>
+          <div class="stat"><b>BLG Tech</b><span data-i18n="stat3">Co-founder of the studio</span></div>
         </div>
-        <div class="scroll-indicator"></div>
-    </header>
+      </div>
 
-    <!-- About Company -->
-    <section id="about" class="about-section">
-        <div class="container">
-            <h2 class="section-title" data-i18n="aboutTitle">درباره ما</h2>
-            <div class="about-grid">
-                <div class="about-text">
-                    <p data-i18n="aboutDesc1">شرکت بهمن‌دار تک توسط حسن بهمن‌دار و علی محمدی، دو مهندس کامپیوتر با مدرک
-                        کارشناسی و سابقه درخشان در توسعه نرم‌افزارهای تحت وب با .NET تأسیس شد.</p>
-                    <p data-i18n="aboutDesc2">ماموریت ما ارائه راهکارهای سفارشی، امن و مقیاس‌پذیر با تمرکز بر معماری
-                        تمیز و تجربه کاربری مدرن است.</p>
-                    <p data-i18n="aboutDesc3">بنیان‌گذاران بیش از ۸ سال تجربه ترکیبی در صنعت فناوری اطلاعات دارند.</p>
-                </div>
-                <div class="about-stats">
-                    <div class="stat-item"><span class="stat-number" data-target="8">0</span><span class="stat-label"
-                            data-i18n="statYears">سال تجربه</span></div>
-                    <div class="stat-item"><span class="stat-number" data-target="30">0</span><span class="stat-label"
-                            data-i18n="statProjects">پروژه موفق</span></div>
-                    <div class="stat-item"><span class="stat-number" data-target="15">0</span><span class="stat-label"
-                            data-i18n="statClients">مشتری خوشحال</span></div>
-                </div>
-            </div>
-        </div>
-    </section>
+      <div class="facts" data-reveal>
+        <div class="row"><span class="k">ROLE</span><span class="v" data-i18n="fact_role">Backend .NET Developer</span></div>
+        <div class="row"><span class="k">STACK</span><span class="v">ASP.NET Core · EF Core · Blazor</span></div>
+        <div class="row"><span class="k">PATTERN</span><span class="v">Clean Architecture · CQRS · Repository</span></div>
+        <div class="row"><span class="k">DEPLOY</span><span class="v">Windows VPS / IIS · ArvanCloud CDN</span></div>
+        <div class="row"><span class="k">STUDIO</span><span class="v">BLG Tech / BenyaminCo</span></div>
+        <div class="row"><span class="k">GITHUB</span><a class="v" href="https://github.com/hassanbrr" target="_blank" rel="noopener">github.com/hassanbrr</a></div>
+        <div class="row"><span class="k">LINKEDIN</span><a class="v" href="https://linkedin.com/in/hassanbrr" target="_blank" rel="noopener">linkedin.com/in/hassanbrr</a></div>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <!-- Team -->
-    <section id="team" class="team-section">
-        <div class="container">
-            <h2 class="section-title" data-i18n="teamTitle">تیم ما</h2>
-            <div class="team-grid">
-                <div class="team-card">
-                    <div class="team-img-frame"><img src="hassan.jpg" alt="Hassan Bahmandar" loading="lazy">
-                    </div>
-                    <h3 data-i18n="member1Name">حسن بهمن‌دار</h3>
-                    <p class="role" data-i18n="member1Role">بنیان‌گذار و مدیر فنی</p>
-                    <p class="bio" data-i18n="member1Bio">توسعه‌دهنده ارشد دات نت با تمرکز بر معماری نرم‌افزار و
-                        سیستم‌های سازمانی.</p>
-                    <div class="member-skills"><span>.NET Core</span><span>Blazor</span><span>C#</span><span>SQL
-                            Server</span></div>
-                </div>
-                <div class="team-card">
-                    <div class="team-img-frame"><img src="meraj.jpg" alt="Ali Mohammadi" loading="lazy"></div>
-                    <h3 data-i18n="member2Name">علی محمدی</h3>
-                    <p class="role" data-i18n="member2Role">بنیان‌گذار و توسعه‌دهنده ارشد</p>
-                    <p class="bio" data-i18n="member2Bio">متخصص فرانت‌اند و بک‌اند با تجربه در Blazor و طراحی رابط
-                        کاربری مدرن.</p>
-                    <div class="member-skills"><span>Blazor</span><span>.NET</span><span>HTML/CSS</span><span>EF
-                            Core</span></div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Skills (dynamic but kept as is) -->
-    <section id="skills" class="skills-section">
-        <div class="container">
-            <h2 class="section-title" data-i18n="skillsTitle">مهارت‌های شرکت</h2>
-            <div class="skills-grid" id="skillsContainer"></div>
-        </div>
-    </section>
-
-    <!-- Projects (STATIC) -->
-    <section id="projects" class="projects-section">
-        <div class="container">
-            <h2 class="section-title" data-i18n="projectsTitle">نمونه کارها</h2>
-            <div class="projects-grid">
-                <!-- Project 1 -->
-                <div class="project-card" data-project="0">
-                    <div class="card-img"><img src="proj1.png" alt="Project 1" loading="lazy"></div>
-                    <div class="card-body">
-                        <h3 data-i18n="proj1Title">سامانه مدیریت محتوا</h3>
-                        <p data-i18n="proj1Desc">CMS سفارشی با ASP.NET Core و Blazor، پنل مدیریت پیشرفته و چندزبانگی.
-                        </p>
-                        <button class="detail-btn">👁️ مشاهده جزئیات</button>
-                        <a href="https://github.com/Hassanbrr" target="_blank" class="github-link">GitHub ↗</a>
-                    </div>
-                </div>
-                <!-- Project 2 -->
-                <div class="project-card" data-project="1">
-                    <div class="card-img"><img src="proj2.png" alt="Project 2" loading="lazy"></div>
-                    <div class="card-body">
-                        <h3 data-i18n="proj2Title">فروشگاه اینترنتی</h3>
-                        <p data-i18n="proj2Desc">پلتفرم تجارت الکترونیک با سبد خرید، درگاه پرداخت و پنل فروشنده در .NET
-                            8.</p>
-                        <button class="detail-btn">👁️ مشاهده جزئیات</button>
-                        <a href="https://github.com/Hassanbrr" target="_blank" class="github-link">GitHub ↗</a>
-                    </div>
-                </div>
-                <!-- Project 3 -->
-                <div class="project-card" data-project="2">
-                    <div class="card-img"><img src="project3.jpg" alt="Project 3" loading="lazy"></div>
-                    <div class="card-body">
-                        <h3 data-i18n="proj3Title">داشبورد تحلیلی</h3>
-                        <p data-i18n="proj3Desc">داشبورد مدیریتی با SignalR، نمودارهای زنده و گزارش‌های پویا.</p>
-                        <button class="detail-btn">👁️ مشاهده جزئیات</button>
-                        <a href="https://github.com/Hassanbrr" target="_blank" class="github-link">GitHub ↗</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact -->
-    <section id="contact" class="contact-section">
-        <div class="container">
-            <h2 class="section-title" data-i18n="contactTitle">تماس با ما</h2>
-            <div class="contact-grid">
-                <form class="contact-form">
-                    <input type="text" placeholder="نام" data-i18n-placeholder="formName" required>
-                    <input type="email" placeholder="ایمیل" data-i18n-placeholder="formEmail" required>
-                    <textarea rows="5" placeholder="پیام شما" data-i18n-placeholder="formMessage" required></textarea>
-                    <button type="submit" class="btn btn-gold" data-i18n="formSubmit">ارسال پیام</button>
-                </form>
-                <div class="contact-info">
-                    <p>📧 hassan@bahmandar.ir</p>
-                    <p>📞 ۰۹۱۲۳۴۵۶۷۸۹</p>
-                    <a href="https://github.com/Hassanbrr" target="_blank">GitHub</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <p data-i18n="footerText">© 2025 بهمن‌دار تک</p>
-        </div>
-    </footer>
-
-    <!-- Project Detail Modal -->
-    <div class="project-modal" id="projectModal">
-        <div class="modal-backdrop"></div>
-        <div class="modal-container">
-            <button class="modal-close" id="modalClose">&times;</button>
-            <div class="modal-frame">
-                <h2 class="modal-title" id="modalTitle"></h2>
-                <div class="modal-gallery" id="modalGallery"></div>
-                <div class="gallery-controls">
-                    <button class="gallery-btn" id="prevImage">&#10094;</button>
-                    <span class="gallery-counter" id="galleryCounter">1 / 5</span>
-                    <button class="gallery-btn" id="nextImage">&#10095;</button>
-                </div>
-                <p class="modal-desc" id="modalDesc"></p>
-                <div class="modal-tech" id="modalTech"></div>
-                <a href="#" target="_blank" class="btn btn-gold modal-github" id="modalGitHub">GitHub</a>
-            </div>
-        </div>
+<!-- ===================== SKILLS ===================== -->
+<section id="skills">
+  <div class="wrap">
+    <div class="section-head" data-reveal>
+      <span class="section-num mono" data-i18n="skills_num">02 — Skills</span>
+      <h2 class="section-title" data-i18n="skills_title">Tools I build with</h2>
+      <p class="section-sub" data-i18n="skills_sub">A combination of language, framework and design patterns that form the foundation of every project I deliver.</p>
     </div>
 
-    <script src="index.js"></script>
+    <div class="skills-grid" data-reveal>
+      <div class="skill-card">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 4h16v16H4z"/><path d="M9 9l-3 3 3 3M15 9l3 3-3 3"/></svg></div>
+        <h4>C# &amp; .NET</h4>
+        <p data-i18n="skill1_p">Backend development with the modern .NET ecosystem</p>
+      </div>
+      <div class="skill-card">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="4" width="18" height="16" rx="1"/><path d="M3 9h18M8 4v5"/></svg></div>
+        <h4>ASP.NET Core / Web API</h4>
+        <p data-i18n="skill2_p">Designing and building scalable RESTful services</p>
+      </div>
+      <div class="skill-card">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v6c0 1.7 3.6 3 8 3s8-1.3 8-3V6M4 12v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></svg></div>
+        <h4>SQL Server &amp; EF Core</h4>
+        <p data-i18n="skill3_p">Data modeling, migrations and query optimization</p>
+      </div>
+      <div class="skill-card">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 2l9 5v10l-9 5-9-5V7z"/><path d="M3 7l9 5 9-5M12 12v10"/></svg></div>
+        <h4>Clean Architecture</h4>
+        <p data-i18n="skill4_p">Layer separation for high maintainability and testability</p>
+      </div>
+      <div class="skill-card">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 12a8 8 0 1116 0 8 8 0 01-16 0z"/><path d="M12 8v4l3 2"/></svg></div>
+        <h4>CQRS / Repository Pattern</h4>
+        <p data-i18n="skill5_p">Separating reads and writes for high-traffic systems</p>
+      </div>
+      <div class="skill-card">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></div>
+        <h4>Blazor Server</h4>
+        <p data-i18n="skill6_p">Interactive admin panels and modern server-rendered UI</p>
+      </div>
+      <div class="skill-card">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 17V7l8-4 8 4v10l-8 4-8-4z"/><path d="M4 7l8 4 8-4M12 11v10"/></svg></div>
+        <h4 data-i18n="skill7_h">Deploy · IIS / ArvanCloud</h4>
+        <p data-i18n="skill7_p">Deploying on Windows VPS and configuring CDN &amp; SSL</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PROJECTS ===================== -->
+<section id="projects">
+  <div class="wrap">
+    <div class="section-head" data-reveal>
+      <span class="section-num mono" data-i18n="projects_num">03 — Selected work</span>
+      <h2 class="section-title" data-i18n="projects_title">Projects and the architecture behind them</h2>
+      <p class="section-sub" data-i18n="projects_sub">Every project is a real, running system — alongside the actual architecture I built behind the scenes.</p>
+    </div>
+
+    <!-- Project 1: BenyaminCo -->
+    <div class="project" data-reveal>
+      <div class="project-head">
+        <div>
+          <span class="project-tag" data-i18n="p1_tag">E-COMMERCE PLATFORM</span>
+          <h3>BenyaminCo</h3>
+          <p class="desc" data-i18n="p1_desc">An e-commerce platform for car accessories with a multi-layer discount engine (coupon codes, product-, category-, brand- and site-wide discounts), a wishlist system and Zarinpal payment integration.</p>
+        </div>
+        <a class="link" href="https://benyaminco.com" target="_blank" rel="noopener">benyaminco.com ↗</a>
+      </div>
+      <div class="project-tech">
+        <span class="chip">ASP.NET Core</span>
+        <span class="chip">Clean Architecture</span>
+        <span class="chip">Blazor Admin Panel</span>
+        <span class="chip">Zarinpal</span>
+        <span class="chip">IIS + ArvanCloud CDN</span>
+      </div>
+
+      <div class="blueprint corner-marks">
+        <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+        <div class="blueprint-label"><span class="seg"></span> <span data-i18n="p1_bp_label">ARCHITECTURE — Ecommerce.Solution</span> <span class="seg"></span></div>
+        <div class="layers">
+          <div class="layer l0">
+            <div class="layer-bar"><span class="layer-idx">00</span><span class="layer-name">Presentation</span><span class="layer-desc" data-i18n="p1_l0">Presentation &amp; UI layer</span></div>
+            <div class="layer-modules">
+              <span class="mod">Ecommerce.Presentation.AdminPanel</span>
+              <span class="mod">Ecommerce.Presentation.APIs</span>
+            </div>
+          </div>
+          <div class="layer">
+            <div class="layer-bar"><span class="layer-idx">01</span><span class="layer-name">Domain</span><span class="layer-desc" data-i18n="p1_l1">Entities &amp; business rules</span></div>
+            <div class="layer-modules"><span class="mod">Ecommerce.Domain</span></div>
+          </div>
+          <div class="layer">
+            <div class="layer-bar"><span class="layer-idx">02</span><span class="layer-name">Application</span><span class="layer-desc" data-i18n="p1_l2">Services, DTOs &amp; validation</span></div>
+            <div class="layer-modules">
+              <span class="mod">Ecommerce.Application</span>
+              <span class="mod sub">Base</span><span class="mod sub">Configuration</span>
+              <span class="mod sub">DTOs</span><span class="mod sub">Profiles</span>
+              <span class="mod sub">Services</span><span class="mod sub">Validators</span>
+            </div>
+          </div>
+          <div class="layer">
+            <div class="layer-bar"><span class="layer-idx">03</span><span class="layer-name">Infrastructure</span><span class="layer-desc" data-i18n="p1_l3">Database, migrations &amp; modules</span></div>
+            <div class="layer-modules">
+              <span class="mod">Ecommerce.Infrastructure</span>
+              <span class="mod sub">Base</span><span class="mod sub">Context</span>
+              <span class="mod sub">Migrations</span><span class="mod sub">Modules</span>
+              <span class="mod sub">Services</span>
+            </div>
+          </div>
+          <div class="layer">
+            <div class="layer-bar"><span class="layer-idx">04</span><span class="layer-name">Utilities</span><span class="layer-desc" data-i18n="p1_l4">Shared utilities across layers</span></div>
+            <div class="layer-modules"><span class="mod">Utilities</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Project 2: Samin Sport Complex -->
+    <div class="project" data-reveal>
+      <div class="project-head">
+        <div>
+          <span class="project-tag" data-i18n="p2_tag">BOOKING SYSTEM</span>
+          <h3>Samin Sport Complex</h3>
+          <p class="desc" data-i18n="p2_desc">An online booking system for a sports facility, with session scheduling, an admin panel and a pricing strategy built specifically for the Iranian market.</p>
+        </div>
+        <a class="link" href="https://saminsportcomplex.ir" target="_blank" rel="noopener">saminsportcomplex.ir ↗</a>
+      </div>
+      <div class="project-tech">
+        <span class="chip">ASP.NET Core</span>
+        <span class="chip">Clean Architecture</span>
+        <span class="chip">Reservation Engine</span>
+        <span class="chip">SQL Server</span>
+        <span class="chip">IIS Deployment</span>
+      </div>
+
+      <div class="blueprint corner-marks">
+        <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+        <div class="blueprint-label"><span class="seg"></span> <span data-i18n="p2_bp_label">ARCHITECTURE — Reservation.Solution</span> <span class="seg"></span></div>
+        <div class="layers">
+          <div class="layer l0">
+            <div class="layer-bar"><span class="layer-idx">00</span><span class="layer-name">Presentation</span><span class="layer-desc" data-i18n="p2_l0">Website &amp; booking panel</span></div>
+            <div class="layer-modules"><span class="mod">Reservation.Presentation.Web</span></div>
+          </div>
+          <div class="layer">
+            <div class="layer-bar"><span class="layer-idx">01</span><span class="layer-name">Domain</span><span class="layer-desc" data-i18n="p2_l1">Booking &amp; session entities</span></div>
+            <div class="layer-modules"><span class="mod">Reservation.Domain</span></div>
+          </div>
+          <div class="layer">
+            <div class="layer-bar"><span class="layer-idx">02</span><span class="layer-name">Application</span><span class="layer-desc" data-i18n="p2_l2">Booking logic &amp; validation</span></div>
+            <div class="layer-modules">
+              <span class="mod">Reservation.Application</span>
+              <span class="mod sub">Base</span><span class="mod sub">DTOs</span>
+              <span class="mod sub">Profiles</span><span class="mod sub">Services</span>
+              <span class="mod sub">Validators</span>
+            </div>
+          </div>
+          <div class="layer">
+            <div class="layer-bar"><span class="layer-idx">03</span><span class="layer-name">Infrastructure</span><span class="layer-desc" data-i18n="p2_l3">Database &amp; infrastructure services</span></div>
+            <div class="layer-modules">
+              <span class="mod">Reservation.Infrastructure</span>
+              <span class="mod sub">Base</span><span class="mod sub">Context</span>
+              <span class="mod sub">Migrations</span><span class="mod sub">Modules</span>
+              <span class="mod sub">Services</span>
+            </div>
+          </div>
+          <div class="layer">
+            <div class="layer-bar"><span class="layer-idx">04</span><span class="layer-name">Helps</span><span class="layer-desc" data-i18n="p2_l4">Shared helper functions</span></div>
+            <div class="layer-modules"><span class="mod">Helps</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== EDUCATION ===================== -->
+<section id="education">
+  <div class="wrap">
+    <div class="section-head" data-reveal>
+      <span class="section-num mono" data-i18n="edu_num">04 — Education &amp; Certificates</span>
+      <h2 class="section-title" data-i18n="edu_title">Learning path</h2>
+    </div>
+    <div class="edu-grid" data-reveal>
+      <div class="edu-card">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M2 9l10-5 10 5-10 5-10-5z"/><path d="M6 11v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"/></svg></div>
+        <h4 data-i18n="edu1_h">B.Sc. in Computer Engineering</h4>
+        <div class="meta" data-i18n="edu1_meta">DEGREE</div>
+        <p data-i18n="edu1_p">Foundation in algorithms, data structures and software engineering principles.</p>
+      </div>
+      <div class="edu-card">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 3l2.5 5 5.5.8-4 3.9.9 5.5L12 15.9 7.1 18.2l.9-5.5-4-3.9 5.5-.8z"/></svg></div>
+        <h4 data-i18n="edu2_h">Full-Stack Web Development Program</h4>
+        <div class="meta" data-i18n="edu2_meta">CERTIFICATE</div>
+        <p data-i18n="edu2_p">A complete path from web fundamentals to server-side architecture.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CONTACT ===================== -->
+<section id="contact">
+  <div class="wrap">
+    <div class="contact-panel corner-marks" data-reveal>
+      <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+      <span class="section-num mono" data-i18n="contact_num">05 — Contact</span>
+      <h2 data-i18n="contact_title">Let's build something real</h2>
+      <p data-i18n="contact_p">For collaboration, technical consulting, or a conversation about your next project's architecture, reach out through any of the channels below.</p>
+     <div class="contact-links">
+  <a class="btn btn-ghost" href="https://github.com/hassanbrr" target="_blank" rel="noopener">GitHub ↗</a>
+  <a class="btn btn-ghost" href="https://linkedin.com/in/hassanbrr" target="_blank" rel="noopener">LinkedIn ↗</a>
+  <a class="btn btn-ghost" href="https://wa.me/989910424863?text=Hello%20I%20am%20interested%20in%20your%20services" target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    WhatsApp
+  </a>
+  <a class="btn btn-primary" href="https://t.me/hassanbrr?text=Hello%20I%20am%20interested%20in%20your%20services" target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M11.944 0A12 12 0 000 12a12 12 0 0012 12 12 12 0 0012-12A12 12 0 0012 0a12 12 0 00-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 01.171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+    Telegram
+  </a>
+</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap mono"><span data-i18n="footer_text">© <span id="year"></span> HASSAN BAHMANDAR — BUILT WITH AN ASP.NET CORE MINDSET</span></div>
+</footer>
+
+<script>
+  // ---------- i18n ----------
+  const translations = {
+    en: {
+      nav_about:"About", nav_skills:"Skills", nav_work:"Work", nav_education:"Education", nav_contact:"Contact",
+      hero_badge:"Available for freelance work",
+      hero_eyebrow:"BACKEND DEVELOPER · ASP.NET CORE ECOSYSTEM",
+      hero_name1:"Hassan", hero_name2:"Bahmandar",
+      hero_role:"Backend developer with two years of professional experience in the .NET ecosystem — building clean, scalable architectures for online stores, booking platforms and content-driven systems.",
+      cta_projects:"View my work", cta_contact:"Get in touch",
+      scroll:"SCROLL",
+      about_num:"01 — About", about_title:"Precision that stays in the code",
+      about_sub:"More than two years living inside clean architectures and real production systems, where every layer has a clear responsibility and nothing is written by accident.",
+      about_p1:"I'm <strong>Hassan Bahmandar</strong>, a backend developer and co-founder of the software studio <strong>BLG Tech</strong>. My core focus is <strong>ASP.NET Core</strong>, <strong>C#</strong> and <strong>Entity Framework Core</strong>, and <strong>Clean Architecture</strong> with <strong>Repository</strong> and <strong>CQRS</strong> patterns is the backbone of every project I build.",
+      about_p2:"Alongside the backend, I build admin interfaces with <strong>Blazor Server</strong>, and deploy projects on <strong>Windows VPS/IIS</strong> behind <strong>ArvanCloud CDN</strong> — working within the real constraints of Iran's internet infrastructure, from filtering to local payment gateways.",
+      about_p3:"I like solving real business problems: from multi-layer discount engines to infrastructure and payment-gateway issues. To me, clean code means a system you can still extend tomorrow without fear.",
+      stat1:"Years of professional experience", stat2:"Core development stack", stat3:"Co-founder of the studio",
+      fact_role:"Backend .NET Developer",
+      skills_num:"02 — Skills", skills_title:"Tools I build with",
+      skills_sub:"A combination of language, framework and design patterns that form the foundation of every project I deliver.",
+      skill1_p:"Backend development with the modern .NET ecosystem",
+      skill2_p:"Designing and building scalable RESTful services",
+      skill3_p:"Data modeling, migrations and query optimization",
+      skill4_p:"Layer separation for high maintainability and testability",
+      skill5_p:"Separating reads and writes for high-traffic systems",
+      skill6_p:"Interactive admin panels and modern server-rendered UI",
+      skill7_h:"Deploy · IIS / ArvanCloud", skill7_p:"Deploying on Windows VPS and configuring CDN &amp; SSL",
+      projects_num:"03 — Selected work", projects_title:"Projects and the architecture behind them",
+      projects_sub:"Every project is a real, running system — alongside the actual architecture I built behind the scenes.",
+      p1_tag:"E-COMMERCE PLATFORM",
+      p1_desc:"An e-commerce platform for car accessories with a multi-layer discount engine (coupon codes, product-, category-, brand- and site-wide discounts), a wishlist system and Zarinpal payment integration.",
+      p1_bp_label:"ARCHITECTURE — Ecommerce.Solution",
+      p1_l0:"Presentation &amp; UI layer", p1_l1:"Entities &amp; business rules", p1_l2:"Services, DTOs &amp; validation",
+      p1_l3:"Database, migrations &amp; modules", p1_l4:"Shared utilities across layers",
+      p2_tag:"BOOKING SYSTEM",
+      p2_desc:"An online booking system for a sports facility, with session scheduling, an admin panel and a pricing strategy built specifically for the Iranian market.",
+      p2_bp_label:"ARCHITECTURE — Reservation.Solution",
+      p2_l0:"Website &amp; booking panel", p2_l1:"Booking &amp; session entities", p2_l2:"Booking logic &amp; validation",
+      p2_l3:"Database &amp; infrastructure services", p2_l4:"Shared helper functions",
+      edu_num:"04 — Education &amp; Certificates", edu_title:"Learning path",
+      edu1_h:"B.Sc. in Computer Engineering", edu1_meta:"DEGREE", edu1_p:"Foundation in algorithms, data structures and software engineering principles.",
+      edu2_h:"Full-Stack Web Development Program", edu2_meta:"CERTIFICATE", edu2_p:"A complete path from web fundamentals to server-side architecture.",
+      contact_num:"05 — Contact", contact_title:"Let's build something real",
+      contact_p:"For collaboration, technical consulting, or a conversation about your next project's architecture, reach out through any of the channels below.",
+      footer_text:'© <span id="year"></span> HASSAN BAHMANDAR — BUILT WITH AN ASP.NET CORE MINDSET'
+    },
+    ar: {
+      nav_about:"نبذة عني", nav_skills:"المهارات", nav_work:"أعمالي", nav_education:"التعليم", nav_contact:"تواصل",
+      hero_badge:"متاح للعمل الحر",
+      hero_eyebrow:"مطوّر باك‌إند · منظومة ASP.NET Core",
+      hero_name1:"حسن", hero_name2:"بهمن‌دار",
+      hero_role:"مطوّر باك‌إند يمتلك سنتين من الخبرة الاحترافية في منظومة .NET — يصمّم معماريات نظيفة وقابلة للتوسّع للمتاجر الإلكترونية وأنظمة الحجز والمنصات القائمة على المحتوى.",
+      cta_projects:"مشاهدة أعمالي", cta_contact:"تواصل معي",
+      scroll:"مرّر للأسفل",
+      about_num:"٠١ — نبذة عني", about_title:"الدقة التي تبقى في الكود",
+      about_sub:"أكثر من عامين أعيش داخل معماريات نظيفة وأنظمة إنتاجية حقيقية، حيث تحمل كل طبقة مسؤولية واضحة ولا يُكتب أي سطر بالصدفة.",
+      about_p1:"أنا <strong>حسن بهمن‌دار</strong>، مطوّر باك‌إند وأحد مؤسسي استوديو البرمجيات <strong>BLG Tech</strong>. يتركّز عملي على <strong>ASP.NET Core</strong> و<strong>C#</strong> و<strong>Entity Framework Core</strong>، وتُعدّ <strong>Clean Architecture</strong> مع أنماط <strong>Repository</strong> و<strong>CQRS</strong> العمود الفقري لكل مشروع أبنيه.",
+      about_p2:"إلى جانب الباك‌إند، أبني واجهات الإدارة باستخدام <strong>Blazor Server</strong>، وأنشر المشاريع على <strong>Windows VPS/IIS</strong> خلف شبكة <strong>ArvanCloud CDN</strong> — ضمن القيود الحقيقية للبنية التحتية للإنترنت في إيران، من الفلترة إلى بوابات الدفع المحلية.",
+      about_p3:"أستمتع بحل مشكلات العمل الحقيقية: من محركات الخصومات متعددة الطبقات إلى مشكلات البنية التحتية وبوابات الدفع. بالنسبة لي، الكود النظيف يعني نظامًا يمكن تطويره غدًا دون خوف.",
+      stat1:"سنوات من الخبرة الاحترافية", stat2:"منصة التطوير الأساسية", stat3:"أحد مؤسسي الاستوديو",
+      fact_role:"مطوّر باك‌إند .NET",
+      skills_num:"٠٢ — المهارات", skills_title:"الأدوات التي أبني بها",
+      skills_sub:"مزيج من اللغة والإطار وأنماط التصميم التي تشكّل أساس كل مشروع أُسلّمه.",
+      skill1_p:"تطوير الباك‌إند باستخدام منظومة .NET الحديثة",
+      skill2_p:"تصميم وبناء خدمات RESTful قابلة للتوسّع",
+      skill3_p:"نمذجة البيانات، الترحيلات وتحسين الاستعلامات",
+      skill4_p:"فصل الطبقات لتحقيق قابلية صيانة واختبار عالية",
+      skill5_p:"فصل القراءة عن الكتابة للأنظمة عالية الحركة",
+      skill6_p:"لوحات تحكم تفاعلية وواجهات حديثة تُعرض من الخادم",
+      skill7_h:"النشر · IIS / ArvanCloud", skill7_p:"النشر على خوادم Windows VPS وضبط CDN وشهادات SSL",
+      projects_num:"٠٣ — أعمال مختارة", projects_title:"المشاريع والمعمارية خلفها",
+      projects_sub:"كل مشروع هو نظام حقيقي يعمل فعليًا — إلى جانب المعمارية الفعلية التي بنيتها خلف الكواليس.",
+      p1_tag:"منصة تجارة إلكترونية",
+      p1_desc:"منصة تجارة إلكترونية لإكسسوارات السيارات مع محرك خصومات متعدد الطبقات (أكواد خصم، وخصومات على مستوى المنتج والفئة والعلامة التجارية، وخصومات عامة على الموقع)، ونظام قائمة أمنيات، وربط مع بوابة الدفع Zarinpal.",
+      p1_bp_label:"المعمارية — Ecommerce.Solution",
+      p1_l0:"طبقة العرض وواجهة المستخدم", p1_l1:"الكيانات وقواعد العمل", p1_l2:"الخدمات وDTOs والتحقق",
+      p1_l3:"قاعدة البيانات، الترحيلات والوحدات", p1_l4:"أدوات مشتركة بين الطبقات",
+      p2_tag:"نظام حجز",
+      p2_desc:"نظام حجز إلكتروني لمجمّع رياضي، يشمل جدولة الحصص، لوحة تحكم إدارية، واستراتيجية تسعير مصمّمة خصيصًا للسوق الإيرانية.",
+      p2_bp_label:"المعمارية — Reservation.Solution",
+      p2_l0:"الموقع ولوحة الحجز", p2_l1:"كيانات الحجز والحصص", p2_l2:"منطق الحجز والتحقق",
+      p2_l3:"قاعدة البيانات وخدمات البنية التحتية", p2_l4:"دوال مساعدة مشتركة",
+      edu_num:"٠٤ — التعليم والشهادات", edu_title:"مسار التعلّم",
+      edu1_h:"بكالوريوس هندسة الحاسوب", edu1_meta:"شهادة جامعية", edu1_p:"أساس في الخوارزميات وهياكل البيانات ومبادئ هندسة البرمجيات.",
+      edu2_h:"برنامج تطوير الويب الشامل (Full-Stack)", edu2_meta:"شهادة تدريبية", edu2_p:"مسار كامل من أساسيات الويب إلى معمارية الخادم.",
+      contact_num:"٠٥ — تواصل", contact_title:"لنبنِ شيئًا حقيقيًا معًا",
+      contact_p:"للتعاون أو الاستشارة الفنية أو للحديث عن معمارية مشروعك القادم، يمكنك التواصل معي عبر أي من القنوات التالية.",
+      footer_text:'© <span id="year"></span> حسن بهمن‌دار — مبني بعقلية ASP.NET Core'
+    }
+  };
+
+  function applyLang(lang){
+    const html = document.getElementById('htmlRoot');
+    html.setAttribute('lang', lang);
+    html.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+    document.querySelectorAll('[data-i18n]').forEach(el=>{
+      const key = el.getAttribute('data-i18n');
+      const val = translations[lang][key];
+      if(val !== undefined) el.innerHTML = val;
+    });
+    document.getElementById('btnEn').classList.toggle('active', lang==='en');
+    document.getElementById('btnAr').classList.toggle('active', lang==='ar');
+    setYear();
+    localStorage.setItem('hb_portfolio_lang', lang);
+  }
+  function setYear(){
+    const y = document.getElementById('year');
+    if(y) y.textContent = new Date().getFullYear();
+  }
+  document.getElementById('btnEn').addEventListener('click', ()=>applyLang('en'));
+  document.getElementById('btnAr').addEventListener('click', ()=>applyLang('ar'));
+  const savedLang = localStorage.getItem('hb_portfolio_lang') || 'en';
+  applyLang(savedLang);
+
+  // ---------- mobile nav ----------
+  const toggle = document.getElementById('navToggle');
+  const links = document.querySelector('.navlinks');
+  toggle.addEventListener('click', () => {
+    const isOpen = links.style.display === 'flex';
+    links.style.display = isOpen ? 'none' : 'flex';
+    links.style.cssText += 'position:fixed;top:76px;right:0;left:0;background:rgba(10,14,20,0.98);flex-direction:column;padding:24px 32px;gap:22px;border-bottom:1px solid var(--line-soft);';
+  });
+  document.querySelectorAll('.navlinks a').forEach(a=>a.addEventListener('click',()=>{ if(window.innerWidth<=900){links.style.display='none';} }));
+
+  // ---------- reveal on scroll ----------
+  const obs = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); obs.unobserve(e.target);} });
+  }, {threshold:0.12});
+  document.querySelectorAll('[data-reveal]').forEach(el=>obs.observe(el));
+</script>
 </body>
-
 </html>
